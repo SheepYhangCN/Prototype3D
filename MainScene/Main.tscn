@@ -1,0 +1,68 @@
+[gd_scene load_steps=8 format=3 uid="uid://bew40b1aje48k"]
+
+[ext_resource type="Script" uid="uid://5wes48hu68q2" path="res://MainScene/Main.cs" id="1_wymcl"]
+[ext_resource type="PackedScene" uid="uid://dy6mhqw4imylg" path="res://Player.tscn" id="2_ia0hc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_82b1a"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w3luf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u0rpq"]
+
+[sub_resource type="Sky" id="Sky_nbtms"]
+sky_material = SubResource("ProceduralSkyMaterial_u0rpq")
+
+[sub_resource type="Environment" id="Environment_j5sn4"]
+background_mode = 2
+sky = SubResource("Sky_nbtms")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+fog_light_color = Color(1, 1, 1, 1)
+fog_density = 0.0
+volumetric_fog_density = 0.0
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_wymcl")
+
+[node name="Player" parent="." instance=ExtResource("2_ia0hc")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1, 0)
+
+[node name="floor" type="StaticBody3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 1, 0, 0, 0, 20, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+shape = SubResource("BoxShape3D_82b1a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+mesh = SubResource("BoxMesh_w3luf")
+
+[node name="back_wall" type="StaticBody3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 10, 0, 0, 0, 1, 0, 4, -10)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="back_wall"]
+shape = SubResource("BoxShape3D_82b1a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="back_wall"]
+mesh = SubResource("BoxMesh_w3luf")
+
+[node name="left_wall" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 20, 5, 4, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="left_wall"]
+shape = SubResource("BoxShape3D_82b1a")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="left_wall"]
+mesh = SubResource("BoxMesh_w3luf")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_j5sn4")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.382683, 0.653282, -0.653282, 0, 0.707107, 0.707107, 0.92388, -0.270598, 0.270598, -15, 5, 10)
+shadow_enabled = true
