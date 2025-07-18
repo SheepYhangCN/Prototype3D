@@ -99,7 +99,7 @@ public partial class Player : CharacterBody3D
 
 		if (gravity_toggle)
 		{
-			if (Input.IsActionJustPressed("ui_accept"))
+			if (/*IsOnFloor() && */Input.IsActionJustPressed("ui_accept"))
 			{
 				velocity.Y += Speed;
 			}
