@@ -137,7 +137,7 @@ public partial class Player : CharacterBody3D
 		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		direction = direction.Rotated(Vector3.Up,GetNode<SpringArm3D>("SpringArm").Rotation.Y).Normalized();
-		if (direction != Vector3.Zero)
+		if (IsOnFloor() && direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
