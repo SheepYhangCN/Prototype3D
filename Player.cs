@@ -44,7 +44,7 @@ public partial class Player : CharacterBody3D
 			Speed = 5.0f;
 			CameraFPS.Fov = 90;
 			CameraTPS.Fov = 90;
-			light.LightEnergy = 5.0f;
+			light.LightEnergy = 20.0f;
 		}
 
 		light.Rotation = CameraFPS.Rotation;
@@ -56,7 +56,7 @@ public partial class Player : CharacterBody3D
 		double FPS=Engine.GetFramesPerSecond();
 		if(overlay)
 		{
-			GetNode<Label>("Label").Text="FPS:"+FPS.ToString() + 
+			GetNode<Label>("Label").Text="FPS:"+FPS.ToString() + "(" + (1d/Performance.GetMonitor(Performance.Monitor.TimeProcess)).ToString() + ")" +
 			"\nGravity toggle: " + gravity_toggle.ToString() + 
 			"\nCollision toggle: " + collision.ToString() + 
 			"\nSpeed: " + Speed.ToString() + 
@@ -78,12 +78,6 @@ public partial class Player : CharacterBody3D
 
 		CameraFPS.Fov += (Input.IsActionJustPressed("fovup") ? 5f : 0) + (Input.IsActionJustPressed("fovdown") ? -5f : 0);
 		CameraTPS.Fov = CameraFPS.Fov;
-
-		if(Input.IsActionJustPressed("fps_tps"))
-		{
-			CameraFPS.Current = !CameraFPS.Current;
-			CameraTPS.Current = !CameraFPS.Current;
-		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -102,7 +96,7 @@ public partial class Player : CharacterBody3D
 
 		if (gravity_toggle)
 		{
-			if (/*IsOnFloor() && */Input.IsActionJustPressed("ui_accept"))
+			if (IsOnFloor() && Input.IsActionJustPressed("ui_accept"))
 			{
 				velocity.Y += Speed;
 			}

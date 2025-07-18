@@ -23,6 +23,7 @@ ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
 sdfgi_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
 fog_light_color = Color(1, 1, 1, 1)
 fog_density = 0.0

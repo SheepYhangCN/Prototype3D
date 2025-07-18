@@ -29,11 +29,11 @@ public partial class SpringArm : SpringArm3D
 			{
 				Vector3 currentRotation = RotationDegrees;
 				currentRotation.X -= eventMouseMotion.Relative.Y * mouse_sensitivity;
-				currentRotation.X = Mathf.Clamp(currentRotation.X, -70, 30);
+				currentRotation.X = Mathf.Clamp(currentRotation.X, -90, 60);
 				RotationDegrees = currentRotation;
 				Vector3 cameraRotation = Camera.RotationDegrees;
 				cameraRotation.X -= eventMouseMotion.Relative.Y * mouse_sensitivity;
-				cameraRotation.X = Mathf.Clamp(cameraRotation.X, -70, 70);
+				cameraRotation.X = Mathf.Clamp(cameraRotation.X, -90, (Camera.Current ? 90 : 60));
 				Camera.RotationDegrees = cameraRotation;
 				Vector3 playerRotation = Player.RotationDegrees;
 				playerRotation.Y -= eventMouseMotion.Relative.X * mouse_sensitivity;
@@ -57,6 +57,19 @@ public partial class SpringArm : SpringArm3D
 		else
 		{
 			Input.MouseMode = Input.MouseModeEnum.Visible;
+		}
+		var CameraTPS = GetNode<Camera3D>("Camera");
+		var CameraFPS = GetNode<Camera3D>("../Camera3D");
+
+		if (CameraTPS.Current && CameraFPS.RotationDegrees.X > 60)
+		{
+			CameraFPS.RotationDegrees = new(Mathf.Clamp(RotationDegrees.X, -90, 60), CameraFPS.RotationDegrees.Y, CameraFPS.RotationDegrees.Z);
+		}
+	
+		if(Input.IsActionJustPressed("fps_tps"))
+		{
+			CameraFPS.Current = !CameraFPS.Current;
+			CameraTPS.Current = !CameraFPS.Current;
 		}
 	}
 	/*
