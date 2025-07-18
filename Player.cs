@@ -85,6 +85,8 @@ public partial class Player : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		bool IsOnFloorOrGravityDisabled = ((IsOnFloor() && gravity_toggle) || !gravity_toggle);
+
 		Speed += (Input.IsActionPressed("speedup") ? 0.5f : 0) + (Input.IsActionPressed("speeddown") ? -0.5f : 0);
 		var sprint = Input.IsActionPressed("sprint");
 		/*
@@ -105,7 +107,7 @@ public partial class Player : CharacterBody3D
 			{
 				velocity.Y -= Speed;
 			}
-			else if (IsOnFloor())
+			else if (IsOnFloorOrGravityDisabled)
 			{
 				velocity.Y = 0;
 			}
@@ -136,16 +138,16 @@ public partial class Player : CharacterBody3D
 		}
 		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
-		direction = direction.Rotated(Vector3.Up,GetNode<SpringArm3D>("SpringArm").Rotation.Y).Normalized();
-		if (IsOnFloor() && direction != Vector3.Zero)
+		direction = direction.Rotated(Vector3.Up,Mathf.DegToRad(180)).Normalized();
+		if (IsOnFloorOrGravityDisabled && direction != Vector3.Zero)
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, IsOnFloor() ? Speed / 10 : 0);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, IsOnFloor() ? Speed / 10 : 0);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, IsOnFloorOrGravityDisabled ? Speed / 10 : 0);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, IsOnFloorOrGravityDisabled ? Speed / 10 : 0);
 		}
 		Velocity = velocity;
 		MoveAndSlide();
