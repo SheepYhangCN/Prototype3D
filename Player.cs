@@ -144,8 +144,8 @@ public partial class Player : CharacterBody3D
 		}
 		else
 		{
-			velocity.X = Mathf.MoveToward(Velocity.X, 0, Speed);
-			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, Speed);
+			velocity.X = Mathf.MoveToward(Velocity.X, 0, IsOnFloor() ? Speed / 10 : 0);
+			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, IsOnFloor() ? Speed / 10 : 0);
 		}
 		Velocity = velocity;
 		MoveAndSlide();
