@@ -86,6 +86,12 @@ public partial class Player : CharacterBody3D
 	public override void _PhysicsProcess(double delta)
 	{
 		Speed += (Input.IsActionPressed("speedup") ? 0.5f : 0) + (Input.IsActionPressed("speeddown") ? -0.5f : 0);
+		var sprint = Input.IsActionPressed("sprint");
+		/*
+		if (sprint)
+		{
+			Speed *= 2;
+		}*/
 		
 		Vector3 velocity = Velocity;
 
@@ -95,7 +101,7 @@ public partial class Player : CharacterBody3D
 			{
 				velocity.Y += Speed;
 			}
-			else if (Input.IsActionPressed("shift"))
+			else if (Input.IsActionPressed("down"))
 			{
 				velocity.Y -= Speed;
 			}
@@ -114,7 +120,7 @@ public partial class Player : CharacterBody3D
 			{
 				velocity.Y = Speed;
 			}
-			else if (Input.IsActionPressed("shift"))
+			else if (Input.IsActionPressed("down"))
 			{
 				velocity.Y = -Speed;
 			}
@@ -124,6 +130,10 @@ public partial class Player : CharacterBody3D
 			}
 		}
 
+		if (sprint)
+		{
+			Speed *= 2;
+		}
 		Vector2 inputDir = Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down");
 		Vector3 direction = (Transform.Basis * new Vector3(inputDir.X, 0, inputDir.Y)).Normalized();
 		direction = direction.Rotated(Vector3.Up,GetNode<SpringArm3D>("SpringArm").Rotation.Y).Normalized();
@@ -139,5 +149,9 @@ public partial class Player : CharacterBody3D
 		}
 		Velocity = velocity;
 		MoveAndSlide();
+		if (sprint)
+		{
+			Speed /= 2;
+		}
 	}
 }

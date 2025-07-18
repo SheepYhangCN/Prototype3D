@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dy6mhqw4imylg"]
 
 [ext_resource type="Script" uid="uid://bjl1ecjdqygeg" path="res://Player.cs" id="1_kpjcp"]
-[ext_resource type="Script" path="res://SpringArm.cs" id="2_kpjcp"]
+[ext_resource type="Script" uid="uid://ht2bgcntjak" path="res://SpringArm.cs" id="2_kpjcp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ahn8c"]
 
