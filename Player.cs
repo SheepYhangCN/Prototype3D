@@ -10,6 +10,7 @@ public partial class Player : CharacterBody3D
 	[Export] bool collision = true;
 	Vector3 original_position = Vector3.Zero;
 	Vector3 original_rotation = Vector3.Zero;
+	Vector3 last_rotation = Vector3.Zero;
 
 	float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
@@ -143,9 +144,15 @@ public partial class Player : CharacterBody3D
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
+			last_rotation = Rotation;
 		}
 		else
 		{
+			if (last_rotation != Rotation)
+			{
+				Velocity = Velocity.Rotated(Vector3.Up,Rotation.Y - last_rotation.Y);
+				last_rotation = Rotation;
+			}
 			velocity.X = Mathf.MoveToward(Velocity.X, 0, IsOnFloorOrGravityDisabled ? Speed / 10 : 0);
 			velocity.Z = Mathf.MoveToward(Velocity.Z, 0, IsOnFloorOrGravityDisabled ? Speed / 10 : 0);
 		}
