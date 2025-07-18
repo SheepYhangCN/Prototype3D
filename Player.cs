@@ -56,7 +56,7 @@ public partial class Player : CharacterBody3D
 		double FPS=Engine.GetFramesPerSecond();
 		if(overlay)
 		{
-			GetNode<Label>("Label").Text="FPS:"+FPS.ToString() + "(" + (1d/Performance.GetMonitor(Performance.Monitor.TimeProcess)).ToString() + ")" +
+			GetNode<Label>("Label").Text="FPS: "+FPS.ToString() + "(" + (1d/Performance.GetMonitor(Performance.Monitor.TimeProcess)).ToString() + ")" +
 			"\nGravity toggle: " + gravity_toggle.ToString() + 
 			"\nCollision toggle: " + collision.ToString() + 
 			"\nSpeed: " + Speed.ToString() + 
