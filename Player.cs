@@ -54,14 +54,15 @@ public partial class Player : CharacterBody3D
 		GetNode<CollisionShape3D>("CollisionShape3D").Disabled = !collision;
 
 		double FPS=Engine.GetFramesPerSecond();
-		if(overlay)
+		if (overlay)
 		{
-			GetNode<Label>("Label").Text="FPS: "+FPS.ToString() + "(" + (1d/Performance.GetMonitor(Performance.Monitor.TimeProcess)).ToString() + ")" +
-			"\nGravity toggle: " + gravity_toggle.ToString() + 
-			"\nCollision toggle: " + collision.ToString() + 
-			"\nSpeed: " + Speed.ToString() + 
-			"\nFlashlight: " + flashlight.ToString() + 
-			"\nFlashlight.LightEnergy: " + light.LightEnergy.ToString() + 
+			GetNode<Label>("Label").Text = "F1 to toggle overlay, V to change camera FPS/TPS, R to reset player" + 
+			"\nFPS: "+FPS.ToString() + "(" + (1d/Performance.GetMonitor(Performance.Monitor.TimeProcess)).ToString() + ")" +
+			"\nGravity toggle: " + gravity_toggle.ToString() + " (G)" + 
+			"\nCollision toggle: " + collision.ToString() + " (C)" + 
+			"\nSpeed: " + Speed.ToString() + " (Keypad 4/6)" + 
+			"\nFlashlight: " + flashlight.ToString() + " (F)" + 
+			"\nFlashlight.LightEnergy: " + light.LightEnergy.ToString() + " (MouseXbutton 1/2)" + 
 			"\nPlayer.Position"+Position.ToString() + 
 			"\nPlayer.Velocity"+Velocity.ToString() + 
 			"\nPlayer.AirVelocity"+air_velocity.ToString() + 
@@ -69,7 +70,7 @@ public partial class Player : CharacterBody3D
 			"\nCameraTPS.Position"+CameraTPS.Position.ToString() + 
 			"\nCameraTPS.RotationDegrees"+Camera.RotationDegrees.ToString() + 
 			"\nCameraFPS.RotationDegrees"+CameraFPS.RotationDegrees.ToString() + 
-			"\nCamera.Fov: "+CameraFPS.Fov.ToString();
+			"\nCamera.Fov: "+CameraFPS.Fov.ToString() + " (Keypad 2/8)";
 		}
 		else
 		{
